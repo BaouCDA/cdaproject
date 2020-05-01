@@ -12,16 +12,16 @@
         <div class="wrapper row1">
           <header id="header" class="hoc clear">      
             <div id="logo" class="fl_left">
-              <h1><a href="index.php">Pense le monde</a></h1>
+              <h1><a href="{{ path('accueil') }}">Pense le monde</a></h1>
             </div>
             <nav id="mainav" class="fl_right">
               <ul class="clear">
                 <li class="active"><a href="index.php">Home</a></li>
                 <li><a class="drop" href="#">Idée</a>
                   <ul>
-                    <li><a href="{{ path('planete') }}">Planete</a></li>
+                    <li><a href="{{ path('planetes') }}">Planete</a></li>
                     <li><a href="{{ path('entreprises') }}">Entreprise</a></li>
-                    <li><a href="{{ path('politique') }}">Politique</a></li>
+                    <li><a href="{{ path('politiques') }}">Politique</a></li>
                     <li><a href="{{ path('histoires') }}">Scenario : films/roman</a></li>
                     <li><a href="{{ path('view_theme') }}">theme du jour</a></li>
                   </ul>
@@ -137,9 +137,9 @@
         <!-- JAVASCRIPTS -->
 
         {% block javascripts %}
-            <script src="public/layout/scripts/jquery.min.js"></script>
-            <script src="public/layout/scripts/jquery.backtotop.js"></script>
-            <script src="public/layout/scripts/jquery.mobilemenu.js"></script>
+            <script src="{{ asset('layout/scripts/jquery.min.js') }}"></script>
+            <script src="{{ asset('layout/scripts/jquery.backtotop.js') }}"></script>
+            <script src="{{ asset('layout/scripts/jquery.mobilemenu.js') }}"></script>
         {% endblock %}
     </body>
 </html>

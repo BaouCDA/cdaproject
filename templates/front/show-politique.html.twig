@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="bgded overlay" style="background-image:url('{{ asset('images/demo/backgrounds/05.jpg') }}')"> 
+  <section id="breadcrumb" class="hoc clear"> 
+    <h6 class="heading">Idée novatrice politique</h6>
+    <ul>
+      <li><a href="{{ path('accueil') }}">Accueil</a></li>
+      <li><a href="{{ path('politiques') }}">politique</a></li>
+      <li><a href="">{{ post.title }}</a></li>
+    </ul>
+  </section>
+</div>
+<div class="wrapper row3">
+  <main class="hoc container clear"> 
+    <div class="content"> 
+      <h1>{{ post.title }}</h1>De {{ post.member.pseudo }}
+      <span>Le {{ post.createdAt | date ('d/m/Y') }}</span>
+      <img class="imgr borderedbox inspace-5" src="{{ asset('images/demo/livre.jpg') }}" alt="">
+      <p>{{ post.content | striptags }} </p>      
+      <div id="comments">
+        <?php
+          if (isset($_SESSION['pseudo']) OR isset($_COOKIE['pseudo']))
+          {
+          ?>
+          <br>
+        <h2>Ecrire un commentaire</h2>
+        <form action="./index.php?action=addStoryComment&amp;id=<?= $post['id'] ?>" method="post">
+          <div class="block clear">
+            <label for="comment">Votre Commentaire</label>
+            <textarea name="comment" id="comment" cols="25" rows="10"></textarea>
+          </div>
+          <div>
+            <input type="submit" name="submit" value="Envoyer">
+            &nbsp;            
+          </div>
+        </form>
+        <?php
+          }
+          else
+          {
+          ?>
+          <a href="view/frontend/loginView.php">veuillez vous identifier pour ecrire un commentaire</a>
+          <?php
+          }
+          ?> 
+      </div>
+        <h2>Commentaires</h2>
+        <ul>
+            {% for comment in comments %}
+            <li>
+              <article>
+                <header>
+                  <figure class="avatar"><img class="img-prof" src="{{ comment.member.photo }}" width="80" height="80" border="0" alt=""></figure>
+                  <address>
+                  By <a href="#">{{ comment.author }}</a>
+                  </address>
+                  <p>Le {{ comment.createdAt | date ('d/m/Y') }}</p>
+                </header>
+                <div class="comcont">
+                  <p>{{ comment.author }}</p>
+                  <a class="signaler" href="./index.php?action=signalStoryCo&amp;id=<?= $comment['id'] ?>">Signaler</a>
+                  <hr> 
+                <span class="signaturecom"><strong>Signature:</strong> {{ comment.member.signature }}</span>
+                <hr>
+                </div>
+              </article>
+            </li> 
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="clear"></div>
+  </main>
+</div>       
+{% endblock %}

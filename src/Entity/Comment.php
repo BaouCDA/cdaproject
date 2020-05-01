@@ -52,6 +52,11 @@ class Comment
      */
     private $member;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Theme", inversedBy="comment")
+     */
+    private $theme;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +142,18 @@ class Comment
     public function setMember(?Member $member): self
     {
         $this->member = $member;
+
+        return $this;
+    }
+
+    public function getTheme(): ?Theme
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(?Theme $theme): self
+    {
+        $this->theme = $theme;
 
         return $this;
     }

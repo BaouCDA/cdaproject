@@ -1,1 +1,32 @@
 {% extends 'base.html.twig' %}
+{% block body %}
+<div class="container">      
+        <h1 class="mt-4 mb-3">Les dernières idées pour la planète
+        </h1>    
+        {% for post in posts %}
+        <div class="card mb-4 post-preview">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <a href="#">
+                  <img class="img-fluid rounded img-post" src="{{ post.image }}" alt="">
+                </a>
+              </div>
+              <div class="col-lg-6">
+                <h2 >{{ post.title }}</h2>
+                <p>{{ post.content | striptags | slice(0, 100) }} [...]</p>
+                <a href="{{ path('planete', { 'id' : post.id }) }}" >Lire la suite &rarr;</a>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-muted">
+           Poster le {{ post.createdAt | date ('d/m/Y') }} par
+            <a href="#">{{ post.member.nom }}</a>
+          </div>
+        </div>
+       
+        {% endfor %}
+
+        {{ knp_pagination_render(posts) }}
+       
+        {% endblock %}

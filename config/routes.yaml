@@ -10,17 +10,33 @@ histoires:
     path: /histoires
     controller: App\Controller\FrontController::listeHistoires
 
+histoire:
+    path: /histoires/{id}
+    controller: App\Controller\FrontController::showHistoire
+
 entreprises:
     path: /entreprises
     controller: App\Controller\FrontController::listeEntreprises
 
+entreprise:
+    path: /entreprises/{id}
+    controller: App\Controller\FrontController::showEntreprise
+
+politiques:
+    path: /politiques
+    controller: App\Controller\FrontController::listePolitiques
+
 politique:
-    path: /politique
-    controller: App\Controller\FrontController::listePolitique
+    path: /politiques/{id}
+    controller: App\Controller\FrontController::showPolitique
+
+planetes:
+    path: /planetes
+    controller: App\Controller\FrontController::listePlanetes
 
 planete:
-    path: /planete
-    controller: App\Controller\FrontController::listePlanete
+    path: /planetes/{id}
+    controller: App\Controller\FrontController::showPlanete
 
 theme:
     path: /theme
