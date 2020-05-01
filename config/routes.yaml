@@ -1,0 +1,31 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+accueil:
+    path: /
+    controller: App\Controller\FrontController::index
+
+histoires:
+    path: /histoires
+    controller: App\Controller\FrontController::listeHistoires
+
+entreprises:
+    path: /entreprises
+    controller: App\Controller\FrontController::listeEntreprises
+
+politique:
+    path: /politique
+    controller: App\Controller\FrontController::listePolitique
+
+planete:
+    path: /planete
+    controller: App\Controller\FrontController::listePlanete
+
+theme:
+    path: /theme
+    controller: App\Controller\FrontController::theme
+
+view_theme:
+    path: theme/theme-view
+    controller: App\Controller\FrontController::themeView

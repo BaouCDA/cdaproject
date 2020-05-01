@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="icon" type="image/ico" href="{{ asset('images/favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ asset('layout/styles/layout.css') }}" type="text/css" />
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body id="top">
+        <div class="wrapper row1">
+          <header id="header" class="hoc clear">      
+            <div id="logo" class="fl_left">
+              <h1><a href="index.php">Pense le monde</a></h1>
+            </div>
+            <nav id="mainav" class="fl_right">
+              <ul class="clear">
+                <li class="active"><a href="index.php">Home</a></li>
+                <li><a class="drop" href="#">Idée</a>
+                  <ul>
+                    <li><a href="{{ path('planete') }}">Planete</a></li>
+                    <li><a href="{{ path('entreprises') }}">Entreprise</a></li>
+                    <li><a href="{{ path('politique') }}">Politique</a></li>
+                    <li><a href="{{ path('histoires') }}">Scenario : films/roman</a></li>
+                    <li><a href="{{ path('view_theme') }}">theme du jour</a></li>
+                  </ul>
+                </li>
+                <?php
+                  if (isset($_SESSION['pseudo']) OR (isset($_COOKIE['pseudo'])))
+                  {          
+                  ?>
+                  <li class="">
+                    <a class="" href="index.php?action=deconexion">Se deconnecter</a>
+                  </li>
+                  <?php
+                  }else{
+                  ?>
+                  <li class="">
+                    <a class="" href="view/frontend/loginView.php">S'identifier</a>
+                  </li>
+                  <?php
+                  } 
+                  ?>
+    
+                  <?php
+                  if ((isset($_SESSION['pseudo'])) && ($_SESSION['pseudo'] == 'admin'))
+                  {          
+                  ?>
+                  <li class="nav-item">
+                    <a class="nav-link" href="index.php?action=adminaccess">Back office</a>
+                  </li>
+                  <?php
+                  }
+                  ?>
+    
+                  <?php
+                  if ((isset($_SESSION['pseudo'])) && ($_SESSION['pseudo'] !== 'admin'))
+                  {          
+                  ?>
+                  <li class="nav-item">
+                    <a class="nav-link" href="index.php?action=useraccess">mon espace</a>
+                  </li>
+                  <?php
+                  }
+                  ?>
+    
+                  <?php
+                  if ((isset($_COOKIE['pseudo'])) && ($_COOKIE['pseudo'] == 'admin'))
+                  {          
+                  ?>
+                  <li class="nav-item">
+                    <a class="nav-link" href="index.php?action=adminaccess">Back office</a>
+                  </li>
+                  <?php
+                  }
+                  ?>            
+              </ul>
+            </nav>      
+          </header>
+        </div> 
+
+
+        {% block body %}{% endblock %}
+
+
+        <div class="wrapper row4 bgded overlay" style="background-image:url('{{ asset('images/demo/backgrounds/etoile.jpg') }}')">
+            <footer id="footer" class="hoc clear">     
+              <div class="one_third first">
+                <h6 class="heading">Pense le monde</h6>
+                <p>Pense le monde est un lieu de rencontre entre les creatifs ayant des idées innovantes plein la tête et les entrepreneurs pres a passer a l'action mais manquant d'inspiration ou voulant tester leur idée avant de se lancé.</p>        
+                <nav>
+                  <ul class="nospace">
+                    <li><a href="index.html"><i class="fa fa-lg fa-home"></i></a></li>
+                    <li><a href="#">A propos</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Termes</a></li>
+                    <li><a href="#">vie privé</a></li>
+                    <li><a href="#">Cookies</a></li>
+                  </ul>
+                </nav>
+              </div>
+              <div class="one_third">
+                <h6 class="heading">Me contacter</h6>
+                <ul class="nospace btmspace-30 linklist contact">
+                  
+                  <li><i class="fa fa-phone"></i> +33 612345689</li>
+                  <li><i class="fa fa-fax"></i> +33 612345689</li>
+                  <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+                </ul>
+                <ul class="faico clear">
+                  <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                  <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                  <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                  <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                  <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
+                  <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>
+                </ul>
+              </div>
+              <div class="one_third">
+                <h6 class="heading">Projet CDA</h6>
+                <article>
+                  <h6 class="nospace font-x1"><a href="#">CDA Greta</a></h6>
+                  <time class="font-xs block btmspace-10" datetime="2045-04-05"><sup></sup> Juin 2020</time>
+                  <p class="nospace">Site web crée dans le cadre d'un projet d'etude de concepteur devellopeur d'applications. [&hellip;]</p>
+                </article>
+              </div>
+            </footer>
+          </div>
+          <div class="wrapper row5">
+            <div id="copyright" class="hoc clear"> 
+              <p class="fl_left">Copyright &copy; 2020 - All Rights Reserved - <a href="#">Projet CDA 2020</a></p>
+              
+            </div>
+          </div>
+          <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
+        <!-- JAVASCRIPTS -->
+
+        {% block javascripts %}
+            <script src="public/layout/scripts/jquery.min.js"></script>
+            <script src="public/layout/scripts/jquery.backtotop.js"></script>
+            <script src="public/layout/scripts/jquery.mobilemenu.js"></script>
+        {% endblock %}
+    </body>
+</html>
