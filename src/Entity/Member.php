@@ -5,11 +5,14 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MemberRepository")
  */
-class Member
+class Member implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -35,8 +38,14 @@ class Member
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=8, max=255)
      */
     private $pass;
+
+    /**
+     * @Assert\EqualTo(propertyPath="pass", message = "Les mots de passe ne sont pas identique")
+     */
+    public $confirm_pass;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -219,6 +228,24 @@ class Member
 
         return $this;
     }
+
+    public function getPassword(): ?string
+    {
+        return $this->pass;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function eraseCredentials(){}
+
+    public function getSalt(){}
+
+        public function getRoles(){
+            return ['ROLE_USER'];
+        }
 
     public function __toString(){
         return $this->getNom();

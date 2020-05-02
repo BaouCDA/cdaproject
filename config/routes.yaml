@@ -53,3 +53,7 @@ create_post:
 update_post:
     path: /post/{id}/edit
     controller: App\Controller\FormsController::formPost
+
+registration:
+    path: /registration
+    controller: App\Controller\SecurityController::registration

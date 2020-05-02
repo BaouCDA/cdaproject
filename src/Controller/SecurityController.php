@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Member;
+use App\Form\RegistrationType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
+class SecurityController extends AbstractController
+{
+
+    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
+    {
+        $membre = new Member();
+
+        $form = $this->createForm(RegistrationType::class, $membre);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $hash = $encoder->encodePassword($membre, $membre->getPass());
+            $membre->setPass($hash);
+
+            $membre->setSignature('Aucune signature');
+            $membre->setPhoto('http://placehold.it/350x150');
+            $manager->persist($membre);
+            $manager->flush();
+        }
+
+        return $this->render('security/registration.html.twig', [
+            'formInscription' => $form->createView(),
+        ]);
+    }
+}
