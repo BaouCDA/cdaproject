@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formPost 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+<h1>Formulaire de Posts</h1>
+
+{{ form_start(formPost) }}
+{{ form_row(formPost.title, {'attr':{'placeholder':"Titre du post"}}) }}
+{{ form_row(formPost.content, {'attr':{'placeholder':"Contenu du post"}}) }}
+{{ form_row(formPost.image, {'attr':{'placeholder':"Url de l'image"}}) }}
+
+
+<button type="submit" class="btn btn-succes">
+{% if modeUpdate %}
+    Mettre a jour
+{% else %}
+    Creer le post
+{% endif %}
+</button>
+
+{{ form_end(formPost) }}
+
+
+
+{% endblock %}

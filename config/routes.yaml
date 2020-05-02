@@ -45,3 +45,11 @@ theme:
 view_theme:
     path: theme/theme-view
     controller: App\Controller\FrontController::themeView
+
+create_post:
+    path: /post/new
+    controller: App\Controller\FormsController::formPost
+
+update_post:
+    path: /post/{id}/edit
+    controller: App\Controller\FormsController::formPost

@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\Theme;
+use App\Form\ArticleType;
+use App\Form\PostType;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -166,4 +171,40 @@ class FrontController extends AbstractController
             'comments' => $comments
         ]);
     }
+
+    // public function formPost(Post $post = null, Request $request, EntityManagerInterface $manager){
+        
+    //     if(!$post){
+    //         $post = new Post(); 
+    //     }
+        
+    //     // $form = $this->createFormBuilder($post)
+    //     //             ->add('title')
+    //     //             ->add('content')
+    //     //             ->add('image')
+    //     //             ->getForm();
+
+    //     $form =$this->createForm(PostType::class, $post);
+
+    //     $form->handleRequest($request);
+        
+    //     if($form->isSubmitted() && $form->isValid()){
+    //         if(!$post->getId()){
+    //             $post->setCreatedAt(new \DateTime());
+    //         }
+            
+
+    //         $manager->persist($post);
+    //         $manager->flush();
+
+    //         return $this->redirectToRoute('blog_show', ['id'=> $post->getId()]);
+    //     }
+
+    //     return $this->render('front/create-update.html.twig',[
+    //         'formPost' => $form->createView(),
+    //         'editMode' => $post->getId() !== null
+    //     ]);
+
+    // }
+    
 }
