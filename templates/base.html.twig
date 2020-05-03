@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Pense le monde{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <link rel="icon" type="image/ico" href="{{ asset('images/favicon.ico') }}" />
         <link rel="stylesheet" href="{{ asset('layout/styles/layout.css') }}" type="text/css" />
@@ -26,55 +26,27 @@
                     <li><a href="{{ path('view_theme') }}">theme du jour</a></li>
                   </ul>
                 </li>
-                <?php
-                  if (isset($_SESSION['pseudo']) OR (isset($_COOKIE['pseudo'])))
-                  {          
-                  ?>
+                {% if app.user %}
                   <li class="">
-                    <a class="" href="index.php?action=deconexion">Se deconnecter</a>
+                    <a class="" href="{{ path('logout') }}">Se deconnecter</a>
                   </li>
-                  <?php
-                  }else{
-                  ?>
+                {% else %}
                   <li class="">
-                    <a class="" href="view/frontend/loginView.php">S'identifier</a>
+                    <a class="" href="login">S'identifier</a>
                   </li>
-                  <?php
-                  } 
-                  ?>
+                  {% endif %}
     
-                  <?php
-                  if ((isset($_SESSION['pseudo'])) && ($_SESSION['pseudo'] == 'admin'))
-                  {          
-                  ?>
+                {% if app.user %}
                   <li class="nav-item">
                     <a class="nav-link" href="index.php?action=adminaccess">Back office</a>
                   </li>
-                  <?php
-                  }
-                  ?>
+                {% endif %}
     
-                  <?php
-                  if ((isset($_SESSION['pseudo'])) && ($_SESSION['pseudo'] !== 'admin'))
-                  {          
-                  ?>
+                  {% if app.user %}
                   <li class="nav-item">
                     <a class="nav-link" href="index.php?action=useraccess">mon espace</a>
                   </li>
-                  <?php
-                  }
-                  ?>
-    
-                  <?php
-                  if ((isset($_COOKIE['pseudo'])) && ($_COOKIE['pseudo'] == 'admin'))
-                  {          
-                  ?>
-                  <li class="nav-item">
-                    <a class="nav-link" href="index.php?action=adminaccess">Back office</a>
-                  </li>
-                  <?php
-                  }
-                  ?>            
+                {% endif %}           
               </ul>
             </nav>      
           </header>
@@ -91,12 +63,12 @@
                 <p>Pense le monde est un lieu de rencontre entre les creatifs ayant des idées innovantes plein la tête et les entrepreneurs pres a passer a l'action mais manquant d'inspiration ou voulant tester leur idée avant de se lancé.</p>        
                 <nav>
                   <ul class="nospace">
-                    <li><a href="index.html"><i class="fa fa-lg fa-home"></i></a></li>
-                    <li><a href="#">A propos</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">Termes</a></li>
-                    <li><a href="#">vie privé</a></li>
-                    <li><a href="#">Cookies</a></li>
+                    <li><a href="{{ path('accueil') }}"><i class="fa fa-lg fa-home"></i></a></li>
+                    <li><a href="{{ path('apropos') }}">A propos</a></li>
+                    <li><a href="{{ path('terms') }}">Termes</a></li>
+                    <li><a href="{{ path('apropos') }}">Contact</a></li>
+                    <li><a href="{{ path('vie_prive') }}">vie privé</a></li>
+                    <li><a href="{{ path('cookies_info') }}">Cookies</a></li>
                   </ul>
                 </nav>
               </div>
@@ -106,7 +78,7 @@
                   
                   <li><i class="fa fa-phone"></i> +33 612345689</li>
                   <li><i class="fa fa-fax"></i> +33 612345689</li>
-                  <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+                  <li><i class="fa fa-envelope-o"></i> baou75@hotmail.com</li>
                 </ul>
                 <ul class="faico clear">
                   <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>

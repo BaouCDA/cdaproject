@@ -65,3 +65,19 @@ login:
 logout:
     path: /logout
     controller: App\Controller\SecurityController::logout
+
+apropos:
+    path: /propos
+    controller: App\Controller\FrontController::propos
+
+terms:
+    path: /terms
+    controller: App\Controller\FrontController::terms
+
+vie_prive:
+    path: /vie-prive
+    controller: App\Controller\FrontController::viePrive
+
+cookies_info:
+    path: /cookies
+    controller: App\Controller\FrontController::cookieSite

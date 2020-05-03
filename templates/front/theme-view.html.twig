@@ -58,55 +58,42 @@
 {#-----------------------------------------------------------------------#}     
       
       <div id="comments">
-        <?php
-          if (isset($_SESSION['pseudo']) OR isset($_COOKIE['pseudo']))
-          {
-          ?>
+          {% if app.user %}
           <br>
           <h2>Ecrire un commentaire</h2>
-          <form action="./index.php?action=addthemeComment&amp;id=<?=$_GET['id']?>" method="post">
-          <div class="block clear">
-            <label for="comment">Votre Commentaire</label>
-            <textarea name="comment" id="comment" cols="25" rows="10"></textarea>
-          </div>
-          <div>
-            <input type="submit" name="submit" value="Envoyer">
-            &nbsp;            
-          </div>
-        </form>
-        <?php
-          }
-          else
-          {
-          ?>
-          <a href="view/frontend/loginView.php">veuillez vous identifier pour ecrire un commentaire</a>
-          <?php
-          }
-          ?> 
+
+          {{ form_start(formComment) }}
+          {{ form_row(formComment.content, {'label': 'Ecrivez votre commentaire','attr':{'placeholder': 'Votre commentaire'}}) }}
+          <button type="submit" class="btn btn-success">Commenter</button>
+          {{ form_end(formComment) }}
+
+        {% else %}
+          <a href="{{ path('login') }}">veuillez vous identifier pour ecrire un commentaire</a>
+        {% endif %}
       </div>
-      <h2>Commentaires</h2>
-      <ul>
-        {% for comment in comments %}
-        <li>
-            <article>
-            <header>
-                <figure class="avatar"><img class="img-prof" src="{{ comment.member.photo }}" width="80" height="80" border="0" alt=""></figure>
-                <address>
-                By <a href="#">{{ comment.author }}</a>
-                </address>
-                <p>Le {{ comment.createdAt | date ('d/m/Y') }}</p>
-            </header>
-            <div class="comcont">
-                <p>{{ comment.author }}</p>
-                <a class="signaler" href="./index.php?action=signalStoryCo&amp;id=<?= $comment['id'] ?>">Signaler</a>
-                <hr> 
-            <span class="signaturecom"><strong>Signature:</strong> {{ comment.member.signature }}</span>
-            <hr>
-            </div>
-            </article>
-        </li> 
-        {% endfor %}
-      </ul>
+        <h2>{{ comments | length }} Commentaires</h2>
+        <ul>
+            {% for comment in comments %}
+            <li>
+              <article>
+                <header>
+                  <figure class="avatar"><img class="img-prof" src="{{ comment.member.photo }}" width="80" height="80" border="0" alt=""></figure>
+                  <address>
+                  Par <a href="#">{{ comment.member.pseudo }}</a>
+                  </address>
+                  <p>Le {{ comment.createdAt | date ('d/m/Y') }}</p>
+                </header>
+                <div class="comcont">
+                  <p>{{ comment.member.pseudo }}</p>
+                  <a class="signaler" href="./index.php?action=signalStoryCo&amp;id=<?= $comment['id'] ?>">Signaler</a>
+                  <hr> 
+                <span class="signaturecom"><strong>Signature:</strong> {{ comment.member.signature }}</span>
+                <hr>
+                </div>
+              </article>
+            </li> 
+            {% endfor %}
+        </ul>
     </div>
     <div class="clear"></div>
   </main>

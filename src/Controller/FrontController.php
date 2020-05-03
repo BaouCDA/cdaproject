@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\Theme;
 use App\Form\ArticleType;
+use App\Form\CommentType;
 use App\Form\PostType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -44,17 +45,39 @@ class FrontController extends AbstractController
         ]);
     }
 
-    public function showHistoire($id)
+    public function showHistoire(Post $post, Request $request, EntityManagerInterface $manager)
     {
         $repoPost = $this->getDoctrine()->getRepository(Post::class);
-        $post = $repoPost->find($id);
+
         $repoComment = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $repoComment->findBy(array('post' => $id));
+        $comments = $repoComment->findBy(array('post' => $post));
+
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            
+            $comment->setCreatedAt(new \DateTime());
+            $comment->setJaime(0);
+            $comment->setDisliked(0);
+            $comment->setPost($post);
+            $comment->setMember(null);
+            $comment->setTheme(null);
+            $manager->persist($comment);
+            $manager->flush();
+
+            return $this->redirectToRoute('histoire',[
+                'id' => $post->getId()
+            ]);
+        }
 
         return $this->render('front/show-histoire.html.twig', [
             'controller_name' => 'FrontController',
             'post' => $post,
-            'comments' => $comments
+            'comments' => $comments,
+            'formComment' => $form->createView()
         ]);
     }
 
@@ -75,17 +98,39 @@ class FrontController extends AbstractController
         ]);
     }
 
-    public function showEntreprise($id)
+    public function showEntreprise(Post $post, Request $request, EntityManagerInterface $manager)
     {
         $repoPost = $this->getDoctrine()->getRepository(Post::class);
-        $post = $repoPost->find($id);
+
         $repoComment = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $repoComment->findBy(array('post' => $id));
+        $comments = $repoComment->findBy(array('post' => $post));
+
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            
+            $comment->setCreatedAt(new \DateTime());
+            $comment->setJaime(0);
+            $comment->setDisliked(0);
+            $comment->setPost($post);
+            $comment->setMember(null);
+            $comment->setTheme(null);
+            $manager->persist($comment);
+            $manager->flush();
+
+            return $this->redirectToRoute('entreprise',[
+                'id' => $post->getId()
+            ]);
+        }
 
         return $this->render('front/show-entreprise.html.twig', [
             'controller_name' => 'FrontController',
             'post' => $post,
-            'comments' => $comments
+            'comments' => $comments,
+            'formComment' => $form->createView()
         ]);
     }
 
@@ -106,17 +151,39 @@ class FrontController extends AbstractController
         ]);
     }
 
-    public function showPolitique($id)
+    public function showPolitique(Post $post, Request $request, EntityManagerInterface $manager)
     {
         $repoPost = $this->getDoctrine()->getRepository(Post::class);
-        $post = $repoPost->find($id);
+
         $repoComment = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $repoComment->findBy(array('post' => $id));
+        $comments = $repoComment->findBy(array('post' => $post));
+
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            
+            $comment->setCreatedAt(new \DateTime());
+            $comment->setJaime(0);
+            $comment->setDisliked(0);
+            $comment->setPost($post);
+            $comment->setMember(null);
+            $comment->setTheme(null);
+            $manager->persist($comment);
+            $manager->flush();
+
+            return $this->redirectToRoute('politique',[
+                'id' => $post->getId()
+            ]);
+        }
 
         return $this->render('front/show-politique.html.twig', [
             'controller_name' => 'FrontController',
             'post' => $post,
-            'comments' => $comments
+            'comments' => $comments,
+            'formComment' => $form->createView()
         ]);
     }
 
@@ -137,17 +204,39 @@ class FrontController extends AbstractController
         ]);
     }
 
-    public function showPlanete($id)
+    public function showPlanete(Post $post, Request $request, EntityManagerInterface $manager)
     {
         $repoPost = $this->getDoctrine()->getRepository(Post::class);
-        $post = $repoPost->find($id);
+
         $repoComment = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $repoComment->findBy(array('post' => $id));
+        $comments = $repoComment->findBy(array('post' => $post));
+
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            
+            $comment->setCreatedAt(new \DateTime());
+            $comment->setJaime(0);
+            $comment->setDisliked(0);
+            $comment->setPost($post);
+            $comment->setMember(null);
+            $comment->setTheme(null);
+            $manager->persist($comment);
+            $manager->flush();
+
+            return $this->redirectToRoute('planete',[
+                'id' => $post->getId()
+            ]);
+        }
 
         return $this->render('front/show-planete.html.twig', [
             'controller_name' => 'FrontController',
             'post' => $post,
-            'comments' => $comments
+            'comments' => $comments,
+            'formComment' => $form->createView()
         ]);
     }
 
@@ -158,53 +247,66 @@ class FrontController extends AbstractController
         ]);
     }
 
-    public function themeView()
+    public function themeView(Request $request, EntityManagerInterface $manager)
     {
         $repoPost = $this->getDoctrine()->getRepository(Theme::class);
         $theme = $repoPost->find(1);
         $repoComment = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $repoComment->findBy(array('theme' => 1));
+        $comments = $repoComment->findBy(array('theme' => $theme));
+
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            
+            $comment->setCreatedAt(new \DateTime());
+            $comment->setJaime(0);
+            $comment->setDisliked(0);
+            $comment->setPost(null);
+            $comment->setMember(null);
+            $comment->setTheme($theme);
+            $manager->persist($comment);
+            $manager->flush();
+
+            return $this->redirectToRoute('view-theme',[
+                'id' => $theme->getId()
+            ]);
+        }
 
         return $this->render('front/theme-view.html.twig', [
             'controller_name' => 'FrontController',
             'theme' => $theme,
-            'comments' => $comments
+            'comments' => $comments,
+            'formComment' => $form->createView()
+        ]);
+    }
+// section informations
+    public function propos()
+    {
+        return $this->render('front/apropos.html.twig', [
         ]);
     }
 
-    // public function formPost(Post $post = null, Request $request, EntityManagerInterface $manager){
-        
-    //     if(!$post){
-    //         $post = new Post(); 
-    //     }
-        
-    //     // $form = $this->createFormBuilder($post)
-    //     //             ->add('title')
-    //     //             ->add('content')
-    //     //             ->add('image')
-    //     //             ->getForm();
+    public function contact()
+    {
+        return $this->redirectToRoute('apropos');
+    }
 
-    //     $form =$this->createForm(PostType::class, $post);
+    public function terms()
+    {
+        return $this->render('front/terms.html.twig', [
+        ]);
+    }
 
-    //     $form->handleRequest($request);
-        
-    //     if($form->isSubmitted() && $form->isValid()){
-    //         if(!$post->getId()){
-    //             $post->setCreatedAt(new \DateTime());
-    //         }
-            
+    public function viePrive()
+    {
+        return $this->redirectToRoute('terms');
+    }
 
-    //         $manager->persist($post);
-    //         $manager->flush();
-
-    //         return $this->redirectToRoute('blog_show', ['id'=> $post->getId()]);
-    //     }
-
-    //     return $this->render('front/create-update.html.twig',[
-    //         'formPost' => $form->createView(),
-    //         'editMode' => $post->getId() !== null
-    //     ]);
-
-    // }
-    
+    public function cookieSite()
+    {
+        return $this->redirectToRoute('terms');
+    }
 }
