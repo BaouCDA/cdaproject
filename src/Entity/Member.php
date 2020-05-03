@@ -7,10 +7,19 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MemberRepository")
+ * @UniqueEntity(
+ * fields={"mail"},
+ * message="Email déjà utilisé !"
+ * )
+ * @UniqueEntity(
+ * fields={"pseudo"},
+ * message="Pseudo déjà utilisé !"
+ * )
  */
 class Member implements UserInterface
 {
@@ -49,6 +58,7 @@ class Member implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Email()
      */
     private $mail;
 

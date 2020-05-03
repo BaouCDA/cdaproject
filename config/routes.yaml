@@ -57,3 +57,11 @@ update_post:
 registration:
     path: /registration
     controller: App\Controller\SecurityController::registration
+
+login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout

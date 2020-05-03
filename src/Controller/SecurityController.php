@@ -29,10 +29,22 @@ class SecurityController extends AbstractController
             $membre->setPhoto('http://placehold.it/350x150');
             $manager->persist($membre);
             $manager->flush();
+
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('security/registration.html.twig', [
             'formInscription' => $form->createView(),
         ]);
+    }
+
+    public function login(){
+        return $this->render('security/login.html.twig', [
+            
+        ]);
+    }
+
+    public function logout(){
+        
     }
 }
