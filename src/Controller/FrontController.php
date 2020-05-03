@@ -282,7 +282,7 @@ class FrontController extends AbstractController
             'formComment' => $form->createView()
         ]);
     }
-// section informations
+//------------------------section informations-----------------
     public function propos()
     {
         return $this->render('front/apropos.html.twig', [

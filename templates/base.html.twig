@@ -32,19 +32,19 @@
                   </li>
                 {% else %}
                   <li class="">
-                    <a class="" href="login">S'identifier</a>
+                    <a class="" href="{{ path('login') }}">S'identifier</a>
                   </li>
                   {% endif %}
     
                 {% if app.user %}
                   <li class="nav-item">
-                    <a class="nav-link" href="index.php?action=adminaccess">Back office</a>
+                    <a class="nav-link" href="{{ path('administration') }}">Back office</a>
                   </li>
                 {% endif %}
     
                   {% if app.user %}
                   <li class="nav-item">
-                    <a class="nav-link" href="index.php?action=useraccess">mon espace</a>
+                    <a class="nav-link" href="{{ path('administration') }}">mon espace</a>
                   </li>
                 {% endif %}           
               </ul>

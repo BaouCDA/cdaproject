@@ -1,0 +1,58 @@
+{% extends 'base-back.html.twig' %}
+
+{% block body %}
+<div class="col-md-12">
+        <div class="card card-plain">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title mt-0"> Publications</h4>
+            <p class="card-category"></p>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th class="none">             
+                    </th>
+                    <th>Titre</th>
+                    <th>Date</th>
+                    <th>Categories</th>
+                    <th>Likes</th>
+                    <th>Dislikes</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Liste des posts -->
+                  {% for post in posts %}
+                  <tr>
+                    <td class= "none">              
+                    </td>
+                    <td>
+                      <a href="{{ post.category | lower }}s/{{ post.id }}">{{ post.title }}
+                    </td>
+                    <td>
+                        {{ post.createdAt | date ('d/m/Y') }}
+                    </td>
+                    <td>
+                      <a href="/{{ post.category | lower }}s">{{ post.category.title}}</a>
+                    </td> 
+                    <td>
+                        {{ post.liked }}
+                    </td> 
+                    <td>
+                        {{ post.disliked }}
+                    </td>   
+                    <td>
+                      <a href="{{ path('update_post',{ 'id' : post.id }) }}" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                      <a href=" {{ post.category.removePost(post)}} " class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    </td>
+                  </tr>  
+                {% endfor %} 
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        {{ knp_pagination_render(posts) }}
+{% endblock %}

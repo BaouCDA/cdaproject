@@ -66,6 +66,18 @@ logout:
     path: /logout
     controller: App\Controller\SecurityController::logout
 
+administration:
+    path: /administration
+    controller: App\Controller\BackController::administation
+
+view_members:
+    path: /view_members
+    controller: App\Controller\BackController::viewMembers
+
+profil_user:
+    path: /profil
+    controller: App\Controller\BackController::profil
+
 apropos:
     path: /propos
     controller: App\Controller\FrontController::propos
