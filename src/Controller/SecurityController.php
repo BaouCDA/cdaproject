@@ -25,6 +25,7 @@ class SecurityController extends AbstractController
             $hash = $encoder->encodePassword($membre, $membre->getPass());
             $membre->setPass($hash);
 
+            $membre->setCreatedAt(new \DateTime());
             $membre->setSignature('Aucune signature');
             $membre->setPhoto('http://placehold.it/350x150');
             $manager->persist($membre);

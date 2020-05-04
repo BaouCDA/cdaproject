@@ -28,7 +28,7 @@
                     <td>{{ member.nom }}</td>
                     <td>{{ member.pseudo }}</td>
                     <td>{{ member.mail }}</td>  
-                    <td>date d'inscription a ajouter</td> 
+                    <td>{{ member.createdAt | date ('d/m/Y') }}</td> 
                   </tr>  
                 {% endfor %} 
                 </tbody>
