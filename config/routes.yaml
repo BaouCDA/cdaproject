@@ -54,6 +54,10 @@ update_post:
     path: /post/{id}/edit
     controller: App\Controller\FormsController::formPost
 
+delete_post:
+    path: /delete/{id}
+    controller: App\Controller\BackController::deletePost
+
 registration:
     path: /registration
     controller: App\Controller\SecurityController::registration

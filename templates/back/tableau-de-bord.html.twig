@@ -34,9 +34,26 @@
                     <td>
                         {{ post.createdAt | date ('d/m/Y') }}
                     </td>
+                    {# <td>
+                        <a href="/{{ post.category | lower }}s">{{ post.category.title}}</a>
+                    </td>  #}
+                    {% if (post.category == "histoire") %}
                     <td>
-                      <a href="/{{ post.category | lower }}s">{{ post.category.title}}</a>
+                      <a href="{{ path('histoires') }}">{{ post.category.title}}</a>
                     </td> 
+                    {% elseif (post.category == "Entreprise") %}
+                    <td>
+                      <a href="{{ path('entreprises') }}">{{ post.category.title}}</a>
+                    </td> 
+                    {% elseif (post.category == "politique") %}
+                    <td>
+                      <a href="{{ path('politiques') }}">{{ post.category.title}}</a>
+                    </td> 
+                    {% elseif (post.category == "planete") %}
+                    <td>
+                      <a href="{{ path('planetes') }}">{{ post.category.title}}</a>
+                    </td> 
+                    {% endif %}
                     <td>
                         {{ post.liked }}
                     </td> 
@@ -45,7 +62,7 @@
                     </td>   
                     <td>
                       <a href="{{ path('update_post',{ 'id' : post.id }) }}" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                      <a href=" {{ post.category.removePost(post)}} " class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                      <a href=" {{ path('delete_post',{'id' : post.id}) }} " class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                     </td>
                   </tr>  
                 {% endfor %} 

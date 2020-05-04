@@ -44,6 +44,15 @@ class BackController extends AbstractController
         ]);
     }
 
+    public function deletePost(Post $post)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($post);
+        $em->flush();
+
+        return $this->redirectToRoute('administration');
+    }
+
     public function profil()
     {
         return $this->render('back/profil.html.twig', [
