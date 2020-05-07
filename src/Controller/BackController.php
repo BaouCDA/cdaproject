@@ -14,9 +14,14 @@ class BackController extends AbstractController
     
     public function administation(Request $request, PaginatorInterface $paginator)
     {
-        $repo = $this->getDoctrine()->getRepository(Post::class);
-        $donnees = $repo->findAll();
+        //$userA= $this->get('security.context')->getToken()->getUser();
+        $user = $this->getUser();
+        
 
+        $repo = $this->getDoctrine()->getRepository(Post::class);
+        //$donnees = $repo->findAll();
+        $donnees = $repo->findBy(array('member' => $user->getId()));
+        
         $posts = $paginator->paginate(
             $donnees, 
             $request->query->getInt('page', 1),
@@ -25,6 +30,7 @@ class BackController extends AbstractController
 
         return $this->render('back/tableau-de-bord.html.twig', [
             'posts' => $posts,
+            'user' => $user
         ]);
     }
 

@@ -22,8 +22,9 @@ class FormsController extends AbstractController
         if(!$post){
             $post = new Post();
         }
+        $userId = $this->getUser()->getId();
         $repoMembre = $this->getDoctrine()->getRepository(Member::class);
-        $membre = $repoMembre->find(13);
+        $membre = $repoMembre->find($userId);
 
 
         // $form = $this->createFormBuilder($post)
