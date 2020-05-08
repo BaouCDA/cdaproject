@@ -18,15 +18,15 @@
 						</form>
 					</div>
 				</center>
-		        <h3><?= $_SESSION['pseudo'] ?></h3>
+		        <h3>{{ app.user.pseudo }}</h3>
 		        <span><strong>Date d'inscription: </strong></span>
-		        <span><?= htmlspecialchars($resultat['date_inscription'])?></span><br>
+		        <span>{{ app.user.createdAt | date ('d/m/Y') }}</span><br>
 		        <span><strong>Nom: </strong></span>
-		        <span><?= htmlspecialchars($resultat['nom'])?></span><br>
+		        <span>{{ app.user.nom }}</span><br>
 		        <span><strong>Prenom: </strong></span>
-		        <span><?= htmlspecialchars($resultat['prenom'])?></span><br>
+		        <span>{{ app.user.prenom }}</span><br>
 		        <span><strong>Email: </strong></span>
-		        <span><?= htmlspecialchars($resultat['email'])?></span><br>
+		        <span>{{ app.user.mail }}</span><br>
 		    </center>		    
 	        <hr>
 	        <center>
@@ -42,15 +42,13 @@
 	        				</form>
 	        			</div>
 	        		<br>
-	            	<?=htmlspecialchars($resultat['signature'])?>;
+	            	{{ app.user.signature }}
 	        	</p>
 	        	<br>
 	        </center>
 	    </div>                         
     </div>
 </div>
-<?php $content = ob_get_clean(); ?>
-<?php require('templateBackend.php'); ?>
 
 
 <script type="text/javascript">
@@ -69,7 +67,7 @@ $(function(){
 </script>
 
 
-<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-  </body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>  
+</body>
 </html>
 {% endblock %}

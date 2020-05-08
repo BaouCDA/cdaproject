@@ -44,7 +44,7 @@
                   <p>Le {{ comment.createdAt | date ('d/m/Y') }}</p>
                 </header>
                 <div class="comcont">
-                  <p>{{ comment.member.pseudo }}</p>
+                  <p>{{ comment.content }}</p>
                   <a class="signaler" href="./index.php?action=signalStoryCo&amp;id=<?= $comment['id'] ?>">Signaler</a>
                   <hr> 
                 <span class="signaturecom"><strong>Signature:</strong> {{ comment.member.signature }}</span>

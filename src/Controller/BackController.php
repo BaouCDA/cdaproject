@@ -16,7 +16,7 @@ class BackController extends AbstractController
     {
         //$userA= $this->get('security.context')->getToken()->getUser();
         $user = $this->getUser();
-        
+
         $repo = $this->getDoctrine()->getRepository(Post::class);
 
         if($user->getPseudo() == "cda"){
@@ -64,8 +64,17 @@ class BackController extends AbstractController
 
     public function profil()
     {
+        $user = $this->getUser();
+
+        $repo = $this->getDoctrine()->getRepository(Member::class);
+
+        //$donnees = $repo->findBy(array('member' => $user->getId()));
+        
+
+        $donnees = $repo->findBy(array('id' => $user->getId() ));
+        dump($donnees);
         return $this->render('back/profil.html.twig', [
-            'controller_name' => 'BackController',
+            'member' => $donnees
         ]);
     }
 }

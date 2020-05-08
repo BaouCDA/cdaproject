@@ -222,7 +222,7 @@ class FrontController extends AbstractController
             $comment->setJaime(0);
             $comment->setDisliked(0);
             $comment->setPost($post);
-            $comment->setMember(null);
+            $comment->setMember($this->getUser());
             $comment->setTheme(null);
             $manager->persist($comment);
             $manager->flush();
@@ -265,7 +265,7 @@ class FrontController extends AbstractController
             $comment->setJaime(0);
             $comment->setDisliked(0);
             $comment->setPost(null);
-            $comment->setMember(null);
+            $comment->setMember($this->getUser());
             $comment->setTheme($theme);
             $manager->persist($comment);
             $manager->flush();
