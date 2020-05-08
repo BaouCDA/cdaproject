@@ -28,9 +28,26 @@
                   <tr>
                     <td class= "none">              
                     </td>
-                    <td>
+                    {# <td>
                       <a href="{{ post.category | lower }}s/{{ post.id }}">{{ post.title }}
-                    </td>
+                    </td> #}
+                    {% if (post.category == "histoire") %}
+                      <td>
+                        <a href="{{ path('histoire', { 'id' : post.id }) }}">{{ post.title }}
+                      </td>
+                    {% elseif (post.category == "entreprise") %}
+                      <td>
+                        <a href="{{ path('entreprise', { 'id' : post.id }) }}">{{ post.title }}
+                      </td>
+                    {% elseif (post.category == "politique") %}
+                      <td>
+                        <a href="{{ path('politique', { 'id' : post.id }) }}">{{ post.title }}
+                      </td>
+                    {% elseif (post.category == "planete") %}
+                      <td>
+                        <a href="{{ path('planete', { 'id' : post.id }) }}">{{ post.title }}
+                      </td>
+                    {% endif %}
                     <td>
                         {{ post.createdAt | date ('d/m/Y') }}
                     </td>
@@ -38,21 +55,21 @@
                         <a href="/{{ post.category | lower }}s">{{ post.category.title}}</a>
                     </td>  #}
                     {% if (post.category == "histoire") %}
-                    <td>
-                      <a href="{{ path('histoires') }}">{{ post.category.title}}</a>
-                    </td> 
-                    {% elseif (post.category == "Entreprise") %}
-                    <td>
-                      <a href="{{ path('entreprises') }}">{{ post.category.title}}</a>
-                    </td> 
+                      <td>
+                        <a href="{{ path('histoires') }}">{{ post.category.title}}</a>
+                      </td> 
+                    {% elseif (post.category == "entreprise") %}
+                      <td>
+                        <a href="{{ path('entreprises') }}">{{ post.category.title}}</a>
+                      </td> 
                     {% elseif (post.category == "politique") %}
-                    <td>
-                      <a href="{{ path('politiques') }}">{{ post.category.title}}</a>
-                    </td> 
+                      <td>
+                        <a href="{{ path('politiques') }}">{{ post.category.title}}</a>
+                      </td> 
                     {% elseif (post.category == "planete") %}
-                    <td>
-                      <a href="{{ path('planetes') }}">{{ post.category.title}}</a>
-                    </td> 
+                      <td>
+                        <a href="{{ path('planetes') }}">{{ post.category.title}}</a>
+                      </td> 
                     {% endif %}
                     <td>
                         {{ post.liked }}
