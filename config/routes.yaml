@@ -47,15 +47,15 @@ view_theme:
     controller: App\Controller\FrontController::themeView
 
 create_post:
-    path: /post/new
+    path: membre/post/new
     controller: App\Controller\FormsController::formPost
 
 update_post:
-    path: /post/{id}/edit
+    path: membre/post/{id}/edit
     controller: App\Controller\FormsController::formPost
 
 delete_post:
-    path: /delete/{id}
+    path: membre/delete/{id}
     controller: App\Controller\BackController::deletePost
 
 registration:
@@ -71,7 +71,7 @@ logout:
     controller: App\Controller\SecurityController::logout
 
 administration:
-    path: /administration
+    path: membre/administration
     controller: App\Controller\BackController::administation
 
 view_members:
@@ -79,7 +79,7 @@ view_members:
     controller: App\Controller\BackController::viewMembers
 
 profil_user:
-    path: /profil
+    path: membre/profil
     controller: App\Controller\BackController::profil
 
 apropos:

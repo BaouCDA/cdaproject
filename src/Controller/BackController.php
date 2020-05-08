@@ -17,11 +17,14 @@ class BackController extends AbstractController
         //$userA= $this->get('security.context')->getToken()->getUser();
         $user = $this->getUser();
         
-
         $repo = $this->getDoctrine()->getRepository(Post::class);
-        //$donnees = $repo->findAll();
-        $donnees = $repo->findBy(array('member' => $user->getId()));
-        
+
+        if($user->getPseudo() == "cda"){
+            $donnees = $repo->findAll();
+        }else{
+            $donnees = $repo->findBy(array('member' => $user->getId()));
+        }
+
         $posts = $paginator->paginate(
             $donnees, 
             $request->query->getInt('page', 1),
