@@ -45,12 +45,18 @@ class FrontController extends AbstractController
         ]);
     }
 
-    public function showHistoire(Post $post, Request $request, EntityManagerInterface $manager)
+    public function showHistoire(Post $post, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator)
     {
         $repoPost = $this->getDoctrine()->getRepository(Post::class);
 
         $repoComment = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $repoComment->findBy(array('post' => $post));
+        $donnees = $repoComment->findBy(array('post' => $post));
+
+        $comments = $paginator->paginate(
+            $donnees, 
+            $request->query->getInt('page', 1),
+            6 
+        );
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -98,12 +104,18 @@ class FrontController extends AbstractController
         ]);
     }
 
-    public function showEntreprise(Post $post, Request $request, EntityManagerInterface $manager)
+    public function showEntreprise(Post $post, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator)
     {
         $repoPost = $this->getDoctrine()->getRepository(Post::class);
 
         $repoComment = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $repoComment->findBy(array('post' => $post));
+        $donnees = $repoComment->findBy(array('post' => $post));
+
+        $comments = $paginator->paginate(
+            $donnees, 
+            $request->query->getInt('page', 1),
+            6 
+        );
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -151,12 +163,18 @@ class FrontController extends AbstractController
         ]);
     }
 
-    public function showPolitique(Post $post, Request $request, EntityManagerInterface $manager)
+    public function showPolitique(Post $post, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator)
     {
         $repoPost = $this->getDoctrine()->getRepository(Post::class);
 
         $repoComment = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $repoComment->findBy(array('post' => $post));
+        $donnees = $repoComment->findBy(array('post' => $post));
+
+        $comments = $paginator->paginate(
+            $donnees, 
+            $request->query->getInt('page', 1),
+            6 
+        );
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -204,13 +222,18 @@ class FrontController extends AbstractController
         ]);
     }
 
-    public function showPlanete(Post $post, Request $request, EntityManagerInterface $manager)
+    public function showPlanete(Post $post, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator)
     {
         $repoPost = $this->getDoctrine()->getRepository(Post::class);
 
         $repoComment = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $repoComment->findBy(array('post' => $post));
+        $donnees = $repoComment->findBy(array('post' => $post));
 
+        $comments = $paginator->paginate(
+            $donnees, 
+            $request->query->getInt('page', 1),
+            6 
+        );
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
 
@@ -247,12 +270,18 @@ class FrontController extends AbstractController
         ]);
     }
 
-    public function themeView(Request $request, EntityManagerInterface $manager)
+    public function themeView(Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator)
     {
         $repoPost = $this->getDoctrine()->getRepository(Theme::class);
         $theme = $repoPost->find(1);
         $repoComment = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $repoComment->findBy(array('theme' => $theme));
+        $donnees = $repoComment->findBy(array('theme' => $theme));
+
+        $comments = $paginator->paginate(
+            $donnees, 
+            $request->query->getInt('page', 1),
+            6 
+        );
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
