@@ -22,6 +22,7 @@
           <div class="card-footer text-muted">
            Poster le {{ post.createdAt | date ('d/m/Y') }} par
             <a href="#">{{ post.member.nom }}</a>
+            <span  style="color: blue; float: right;">Likes {{ post.likes | length }}</span>
           </div>
         </div>
        
