@@ -5,15 +5,18 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\Comment;
 use App\Entity\Post;
+use App\Entity\PostLike;
 use App\Entity\Theme;
 use App\Form\ArticleType;
 use App\Form\CommentType;
 use App\Form\PostType;
+use App\Repository\PostLikeRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class FrontController extends AbstractController
@@ -311,6 +314,47 @@ class FrontController extends AbstractController
             'formComment' => $form->createView()
         ]);
     }
+
+    public function like(Post $post, EntityManagerInterface $manager, PostLikeRepository $likeRepos) : Response {
+        
+        $user =$this->getUser();
+        if(!$user) return $this->json([
+            'code' => 403,
+            'message' => "Unauthoriezd"
+        ], 403);
+
+        if($post->isLikedByMember($user)){
+            $like = $likeRepos->findOneBy([
+                'post' => $post,
+                'member' => $user
+            ]);
+
+            $manager->remove($like);
+            $manager->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => 'Like bien supprimé',
+                'likes' => $likeRepos->count(['post' => $post])
+            ], 200);
+        }
+
+        $like = new PostLike();
+        $like->setPost($post)
+             ->setMember($user);
+
+        $manager->persist($like);
+        $manager->flush();
+
+        return $this->json([
+            'code' => 200,
+            'message' => 'Like bien ajouté',
+            'likes' => $likeRepos->count(['post' => $post])
+        ], 200);
+        
+    }
+
+
 //------------------------section informations-----------------
     public function propos()
     {
@@ -338,4 +382,6 @@ class FrontController extends AbstractController
     {
         return $this->redirectToRoute('terms');
     }
+
+
 }

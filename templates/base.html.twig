@@ -6,6 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <link rel="icon" type="image/ico" href="{{ asset('images/favicon.ico') }}" />
         <link rel="stylesheet" href="{{ asset('layout/styles/layout.css') }}" type="text/css" />
+        <script src="https://kit.fontawesome.com/80ec6d3faa.js" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         {% block stylesheets %}{% endblock %}
     </head>
     <body id="top">
@@ -16,7 +18,7 @@
             </div>
             <nav id="mainav" class="fl_right">
               <ul class="clear">
-                <li class="active"><a href="index.php">Home</a></li>
+                <li class="active"><a href="{{ path('accueil') }}">Home</a></li>
                 <li><a class="drop" href="#">Idée</a>
                   <ul>
                     <li><a href="{{ path('planetes') }}">Planete</a></li>
@@ -105,6 +107,7 @@
             <script src="{{ asset('layout/scripts/jquery.min.js') }}"></script>
             <script src="{{ asset('layout/scripts/jquery.backtotop.js') }}"></script>
             <script src="{{ asset('layout/scripts/jquery.mobilemenu.js') }}"></script>
+            <script src="{{ asset('layout/scripts/like.js') }}"></script>
         {% endblock %}
     </body>
 </html>

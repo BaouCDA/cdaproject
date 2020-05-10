@@ -42,15 +42,6 @@ class Post
      */
     private $createdAt;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $liked;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $disliked;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="posts")
@@ -69,9 +60,15 @@ class Post
      */
     private $member;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PostLike", mappedBy="post")
+     */
+    private $likes;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -127,29 +124,6 @@ class Post
         return $this;
     }
 
-    public function getLiked(): ?int
-    {
-        return $this->liked;
-    }
-
-    public function setLiked(int $liked): self
-    {
-        $this->liked = $liked;
-
-        return $this;
-    }
-
-    public function getDisliked(): ?int
-    {
-        return $this->disliked;
-    }
-
-    public function setDisliked(int $disliked): self
-    {
-        $this->disliked = $disliked;
-
-        return $this;
-    }
 
     public function getCategory(): ?Category
     {
@@ -204,5 +178,44 @@ class Post
         $this->member = $member;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|PostLike[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(PostLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(PostLike $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getPost() === $this) {
+                $like->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isLikedByMember(Member $member) : bool {
+        foreach($this->likes as $like){
+            if ($like->getMember() === $member) return true;
+        }
+        return false;
+        
     }
 }

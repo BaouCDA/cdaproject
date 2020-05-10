@@ -26,15 +26,6 @@ class Comment
      */
     private $createdAt;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $jaime;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $disliked;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Post", inversedBy="comments")
@@ -81,29 +72,6 @@ class Comment
         return $this;
     }
 
-    public function getJaime(): ?int
-    {
-        return $this->jaime;
-    }
-
-    public function setJaime(int $jaime): self
-    {
-        $this->jaime = $jaime;
-
-        return $this;
-    }
-
-    public function getDisliked(): ?int
-    {
-        return $this->disliked;
-    }
-
-    public function setDisliked(int $disliked): self
-    {
-        $this->disliked = $disliked;
-
-        return $this;
-    }
 
     public function getPost(): ?Post
     {

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<div class="bgded overlay" style="background-image:url('{{ asset('images/demo/backgrounds/05.jpg') }}')"> 
+<div class="bgded overlay" style="background-image:url('{{ asset('images/demo/backgrounds/entrep01.jpg') }}')"> 
   <section id="breadcrumb" class="hoc clear"> 
     <h6 class="heading">Idée d'entreprise</h6>
     <ul>
@@ -16,7 +16,18 @@
       <h1>{{ post.title }}</h1>De {{ post.member.pseudo }}
       <span>Le {{ post.createdAt | date ('d/m/Y') }}</span>
       <img class="imgr borderedbox inspace-5" src="{{ asset('images/demo/livre.jpg') }}" alt="">
-      <p>{{ post.content | striptags }} </p>      
+      <p>{{ post.content | striptags }} </p> 
+      <div>
+        <a href="{{ path('like', {'id' : post.id}) }}" class="btn-link js-like" style="color: blue;">
+          {% if app.user and post.isLikedByMember(app.user) %}
+            <i class="fas fa-thumbs-up"></i>
+          {% else %}
+            <i class="far fa-thumbs-up"></i>
+          {% endif %}
+          <span class="js-likes">{{ post.likes | length }}</span>
+          <span class="js-label">J'aime</span>
+        </a>
+      </div>     
       <div id="comments">
           {% if app.user %}
           <br>

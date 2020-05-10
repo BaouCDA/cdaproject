@@ -82,6 +82,10 @@ profil_user:
     path: membre/profil
     controller: App\Controller\BackController::profil
 
+like:
+    path: post/{id}/like
+    controller: App\Controller\FrontController::like
+
 apropos:
     path: /propos
     controller: App\Controller\FrontController::propos
