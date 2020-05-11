@@ -44,8 +44,9 @@ class FormsController extends AbstractController
             if(!$post->getId()){
                 $post->setCreatedAt(new \DateTime());
             }
-            $post->setLiked(0);
-            $post->setDisliked(0);
+            if($form->get('image')->getData()==null){
+                $post->setImage("http://placehold.it/350x150");
+            }
             $post->setMember($membre);
 
             $manager->persist($post);

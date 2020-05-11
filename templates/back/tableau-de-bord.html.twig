@@ -4,7 +4,7 @@
 <div class="col-md-12">
         <div class="card card-plain">
           <div class="card-header card-header-primary">
-            <h4 class="card-title mt-0"> Publications de {{user}}</h4>
+            <h4 class="card-title mt-0"> Publications </h4>
             <p class="card-category"></p>
           </div>
           <div class="card-body">
@@ -18,7 +18,7 @@
                     <th>Date</th>
                     <th>Categories</th>
                     <th>Likes</th>
-                    <th>Dislikes</th>
+                    <th>Commentaires</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -72,11 +72,11 @@
                       </td> 
                     {% endif %}
                     <td>
-                        {{ post.liked }}
-                    </td> 
+                        {{ post.likes | length }}
+                    </td>  
                     <td>
-                        {{ post.disliked }}
-                    </td>   
+                        {{ post.comments | length }} commentaires
+                    </td>  
                     <td>
                       <a href="{{ path('update_post',{ 'id' : post.id }) }}" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                       <a href=" {{ path('delete_post',{'id' : post.id}) }} " class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>

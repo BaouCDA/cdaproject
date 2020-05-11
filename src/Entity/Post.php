@@ -36,7 +36,7 @@ class Post
      * @Assert\Url()
      */
     private $image;
-
+    
     /**
      * @ORM\Column(type="datetime")
      */
@@ -61,7 +61,7 @@ class Post
     private $member;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\PostLike", mappedBy="post")
+     * @ORM\OneToMany(targetEntity="App\Entity\PostLike", mappedBy="post", orphanRemoval=true)
      */
     private $likes;
 

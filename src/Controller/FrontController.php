@@ -69,8 +69,6 @@ class FrontController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             
             $comment->setCreatedAt(new \DateTime());
-            $comment->setJaime(0);
-            $comment->setDisliked(0);
             $comment->setPost($post);
             $comment->setMember($this->getUser());
             $comment->setTheme(null);
@@ -128,8 +126,6 @@ class FrontController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             
             $comment->setCreatedAt(new \DateTime());
-            $comment->setJaime(0);
-            $comment->setDisliked(0);
             $comment->setPost($post);
             $comment->setMember($this->getUser());
             $comment->setTheme(null);
@@ -187,8 +183,6 @@ class FrontController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             
             $comment->setCreatedAt(new \DateTime());
-            $comment->setJaime(0);
-            $comment->setDisliked(0);
             $comment->setPost($post);
             $comment->setMember($this->getUser());
             $comment->setTheme(null);
@@ -245,8 +239,6 @@ class FrontController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             
             $comment->setCreatedAt(new \DateTime());
-            $comment->setJaime(0);
-            $comment->setDisliked(0);
             $comment->setPost($post);
             $comment->setMember($this->getUser());
             $comment->setTheme(null);
@@ -294,8 +286,6 @@ class FrontController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             
             $comment->setCreatedAt(new \DateTime());
-            $comment->setJaime(0);
-            $comment->setDisliked(0);
             $comment->setPost(null);
             $comment->setMember($this->getUser());
             $comment->setTheme($theme);
