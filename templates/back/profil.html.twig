@@ -2,72 +2,65 @@
 
 {% block body %}
 
-  <body>
-  	<div class="container">	    
-	    <div>
-		    <center>
-		    	<img src="././public/user_image/<?= $_SESSION['pseudo'] ?>.jpg" name="aboutme" width="120" height="120" border="0"></a><br>
-		    	<button class="buttontest">Ajouter/changer</button>
-		    	<center>
-					<div class="add-pic">
-		  				<p><strong>Cliquez sur parcourir pour ajouter ou modifier la photo de profil</strong></p>
-		 				<form method="post" action="index.php?action=sendimage" enctype="multipart/form-data">	     
-		     				<input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
-		     				<input type="file" name="monfichier" id="mon_fichier" /><br />
-		     				<input type="submit" name="submit" value="Envoyer" />
-						</form>
+	<body>
+		<div class="container">
+			<div>
+				<center>
+					<div class="card" style="width: 18rem;">
+						<img src="{{ asset('user_image/' ~ app.user.photo) }}" class="card-img-top" alt="...">
+
+						<button class="buttontest">Ajouter/changer</button>
+						<div class="add-pic">
+							{{ form(formupload) }}
+							</div>
+							<div class="card-body">
+								<h5 class="card-title">Mes Informations</h5>
+							</div>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">Pseudo :
+									{{ app.user.pseudo }}</li>
+								<li class="list-group-item">Nom :
+									{{ app.user.nom }}</li>
+								<li class="list-group-item">Prenom :
+									{{ app.user.prenom }}</li>
+								<li class="list-group-item">Date d'inscription :
+									{{ app.user.createdAt | date ('d/m/Y') }}</li>
+								<li class="list-group-item">Email :
+									{{ app.user.mail }}</li>
+								<li class="list-group-item">Signature :
+									{{ app.user.signature }}</li>
+								<center class="signature" style="text-align:center">
+									{{ form(formsignature) }}
+								</center>
+								</ul>
+								<div class="card-body">
+									<button class="upsignature" class="card-link" class="upsignature">Ajouter/Changer signature</button>
+								</div>
+							</div>
+							<br>
+						</center>
 					</div>
-				</center>
-		        <h3>{{ app.user.pseudo }}</h3>
-		        <span><strong>Date d'inscription: </strong></span>
-		        <span>{{ app.user.createdAt | date ('d/m/Y') }}</span><br>
-		        <span><strong>Nom: </strong></span>
-		        <span>{{ app.user.nom }}</span><br>
-		        <span><strong>Prenom: </strong></span>
-		        <span>{{ app.user.prenom }}</span><br>
-		        <span><strong>Email: </strong></span>
-		        <span>{{ app.user.mail }}</span><br>
-		    </center>		    
-	        <hr>
-	        <center>
-	        	<p>
-	        		<strong>Signature: </strong>
-	        		<a class="upsignature" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-	        		<br>
-	        			<div class="signature">
-	        				<form method="post" action="index.php?action=upsignature&id=<?=$resultat['id']?>">
-	        					<textarea placeholder="Ecrivez votre signature" name="sign"></textarea>
-	        					<br>
-	        					<input type="submit" name="submit">
-	        				</form>
-	        			</div>
-	        		<br>
-	            	{{ app.user.signature }}
-	        	</p>
-	        	<br>
-	        </center>
-	    </div>                         
-    </div>
-</div>
+				</div>
+			</div>
 
 
-<script type="text/javascript">
-$(function(){
+			<script type="text/javascript">
+				$(function () {
 
-	$('.add-pic').hide();
-	$('.buttontest').one('click',function(){ 
-        $('.add-pic').show('slow/400/fast');
-	});
-
-	$('.signature').hide();
-	$('.upsignature').one('click',function(){ 
-        $('.signature').show('slow/400/fast');
-	});
+$('.add-pic').hide();
+$('.buttontest').one('click', function () {
+$('.add-pic').show('slow/400/fast');
 });
-</script>
+
+$('.signature').hide();
+$('.upsignature').one('click', function () {
+$('.signature').show('slow/400/fast');
+});
+});
+			</script>
 
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>  
-</body>
-</html>
-{% endblock %}
+			<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		</body>
+	</body>
+</html>{% endblock %}

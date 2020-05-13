@@ -1,16 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Inscription</h1>
+	<div class="container">
+		<center>
+			<div class="col-md-6 col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3 col-md-offset-3 col-xs-6 col-xs-offset-3">
 
-    {{ form_start(formInscription) }}
-    {{ form_row(formInscription.nom, {'label': 'Nom','attr':{'placeholder': 'Entrez votre nom'}}) }}
-    {{ form_row(formInscription.prenom, {'label': 'Prenom','attr':{'placeholder': 'Entrez votre prenom'}}) }}
-    {{ form_row(formInscription.pseudo, {'label': 'Pseudo','attr':{'placeholder': 'Entrez votre pseudo'}}) }}
-    {{ form_row(formInscription.pass, {'label': 'Mot de passe','attr':{'placeholder': 'Mot de passe'}}) }}
-    {{ form_row(formInscription.confirm_pass, {'label': 'Repetez le mot de passe','attr':{'placeholder': 'Repetez le mot de passe'}}) }}
-    {{ form_row(formInscription.mail, {'label': 'Email','attr':{'placeholder': 'adresse mail'}}) }}
-    <button type="submit" class="btn btn-success">S'inscrire</button>
-    {{ form_end(formInscription) }}
+				<h1>Inscription</h1>
+
+				{{ form_start(formInscription) }}
+				{{ form_row(formInscription.nom, {'label': 'Nom','attr':{'placeholder': 'Entrez votre nom'}}) }}
+				{{ form_row(formInscription.prenom, {'label': 'Prenom','attr':{'placeholder': 'Entrez votre prenom'}}) }}
+				{{ form_row(formInscription.pseudo, {'label': 'Pseudo','attr':{'placeholder': 'Entrez votre pseudo'}}) }}
+				{{ form_row(formInscription.pass, {'label': 'Mot de passe','attr':{'placeholder': 'Mot de passe'}}) }}
+				{{ form_row(formInscription.confirm_pass, {'label': 'Repetez le mot de passe','attr':{'placeholder': 'Repetez le mot de passe'}}) }}
+				{{ form_row(formInscription.mail, {'label': 'Email','attr':{'placeholder': 'adresse mail'}}) }}
+				<button type="submit" class="btn btn-success">S'inscrire</button>
+				{{ form_end(formInscription) }}
+			</div>
+		</center>
+	</div>
 
 {% endblock %}

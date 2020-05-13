@@ -3,27 +3,31 @@
 {% form_theme formPost 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
-<h1>Formulaire de Posts</h1>
+	<div class="container">
+		<center>
+			<h1>Formulaire de Posts</h1>
+			{{ form_start(formPost) }}
 
-{{ form_start(formPost) }}
-
-{{ form_row(formPost.title, {'attr':{'placeholder':"Titre du post"}}) }}
-{{ form_row(formPost.content, {'attr':{'placeholder':"Contenu du post"}}) }}
-{{ form_row(formPost.image, {'attr':{'placeholder':"Url de l'image"}}) }}
-{{ form_row(formPost.category, {'label':'Categorie'}) }}
+			{{ form_row(formPost.title, {'attr':{'placeholder':"Titre du post"}}) }}
+			{{ form_row(formPost.content, {'attr':{'placeholder':"Contenu du post"}}) }}
+			{{ form_row(formPost.image, {'attr':{'placeholder':"Url de l'image"}}) }}
+			{{ form_row(formPost.category, {'label':'Categorie'}) }}
 
 
-<button type="submit" class="btn btn-succes">
-{% if modeUpdate %}
-    Mettre a jour
-{% else %}
-    Creer le post
-{% endif %}
-</button>
+			<button type="submit" class="btn btn-succes">
+				{% if modeUpdate %}
+					Mettre a jour
+				{% else %}
+					Creer le post
+				{% endif %}
+			</button>
 
-{{ form_end(formPost) }}
-
+			{{ form_end(formPost) }}
+		</center>
+	</div>
 
 
 {% endblock %}

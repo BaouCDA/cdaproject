@@ -1,113 +1,179 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Pense le monde{% endblock %}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <link rel="icon" type="image/ico" href="{{ asset('images/favicon.ico') }}" />
-        <link rel="stylesheet" href="{{ asset('layout/styles/layout.css') }}" type="text/css" />
-        <script src="https://kit.fontawesome.com/80ec6d3faa.js" crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body id="top">
-        <div class="wrapper row1">
-          <header id="header" class="hoc clear">      
-            <div id="logo" class="fl_left">
-              <h1><a href="{{ path('accueil') }}">Pense le monde</a></h1>
-            </div>
-            <nav id="mainav" class="fl_right">
-              <ul class="clear">
-                <li class="active"><a href="{{ path('accueil') }}">Home</a></li>
-                <li><a class="drop" href="#">Idée</a>
-                  <ul>
-                    <li><a href="{{ path('planetes') }}">Planete</a></li>
-                    <li><a href="{{ path('entreprises') }}">Entreprise</a></li>
-                    <li><a href="{{ path('politiques') }}">Politique</a></li>
-                    <li><a href="{{ path('histoires') }}">Scenario : films/roman</a></li>
-                    <li><a href="{{ path('view_theme') }}">theme du jour</a></li>
-                  </ul>
-                </li>
-                {% if app.user %}
-                  <li class="">
-                    <a class="" href="{{ path('logout') }}">Se deconnecter</a>
-                  </li>
-                {% else %}
-                  <li class="">
-                    <a class="" href="{{ path('login') }}">S'identifier</a>
-                  </li>
-                  {% endif %}
-                  {% if app.user %}
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ path('administration') }}">mon espace</a>
-                  </li>
-                {% endif %}           
-              </ul>
-            </nav>      
-          </header>
-        </div> 
+
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Pense le monde
+			{% endblock %}
+		</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="icon" type="image/ico" href="{{ asset('images/favicon.ico') }}"/>
+		<link rel="stylesheet" href="{{ asset('layout/styles/layout.css') }}" type="text/css"/>
+		<script src="https://kit.fontawesome.com/80ec6d3faa.js" crossorigin="anonymous"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		{% block stylesheets %}{% endblock %}
+	</head>
+
+	<body id="top">
+		<div class="wrapper row1">
+			<header id="header" class="hoc clear">
+				<div id="logo" class="fl_left">
+					<h1>
+						<a href="{{ path('accueil') }}">Pense le monde</a>
+					</h1>
+				</div>
+				<nav id="mainav" class="fl_right">
+					<ul class="clear">
+						<li class="active">
+							<a href="{{ path('accueil') }}">Home</a>
+						</li>
+						<li>
+							<a class="drop" href="#">Idée</a>
+							<ul>
+								<li><a href="{{ path('planetes') }}">Planete</a></li>
+								<li><a href="{{ path('entreprises') }}">Entreprise</a></li>
+								<li><a href="{{ path('politiques') }}">Politique</a></li>
+								<li><a href="{{ path('histoires') }}">Scenario : films/roman</a></li>
+								<li><a href="{{ path('view_theme') }}">theme du jour</a></li>
+							</ul>
+						</li>
+						{% if app.user %}
+							<li class="">
+								<a class="" href="{{ path('logout') }}">Se deconnecter</a>
+							</li>
+						{% else %}
+							<li class="">
+								<a class="" href="{{ path('login') }}">S'identifier</a>
+							</li>
+						{% endif %}
+						{% if app.user %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('administration') }}">mon espace</a>
+							</li>
+						{% endif %}
+					</ul>
+				</nav>
+			</header>
+		</div>
 
 
-        {% block body %}{% endblock %}
+		{% block body %}{% endblock %}
 
 
-        <div class="wrapper row4 bgded overlay" style="background-image:url('{{ asset('images/demo/backgrounds/etoile.jpg') }}')">
-            <footer id="footer" class="hoc clear">     
-              <div class="one_third first">
-                <h6 class="heading">Pense le monde</h6>
-                <p>Pense le monde est un lieu de rencontre entre les creatifs ayant des idées innovantes plein la tête et les entrepreneurs pres a passer a l'action mais manquant d'inspiration ou voulant tester leur idée avant de se lancé.</p>        
-                <nav>
-                  <ul class="nospace">
-                    <li><a href="{{ path('accueil') }}"><i class="fa fa-lg fa-home"></i></a></li>
-                    <li><a href="{{ path('apropos') }}">A propos</a></li>
-                    <li><a href="{{ path('terms') }}">Termes</a></li>
-                    <li><a href="{{ path('apropos') }}">Contact</a></li>
-                    <li><a href="{{ path('vie_prive') }}">vie privé</a></li>
-                    <li><a href="{{ path('cookies_info') }}">Cookies</a></li>
-                  </ul>
-                </nav>
-              </div>
-              <div class="one_third">
-                <h6 class="heading">Me contacter</h6>
-                <ul class="nospace btmspace-30 linklist contact">
-                  
-                  <li><i class="fa fa-phone"></i> +33 612345689</li>
-                  <li><i class="fa fa-fax"></i> +33 612345689</li>
-                  <li><i class="fa fa-envelope-o"></i> baou75@hotmail.com</li>
-                </ul>
-                <ul class="faico clear">
-                  <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                  <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                  <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>
-                  <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                  <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-                  <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>
-                </ul>
-              </div>
-              <div class="one_third">
-                <h6 class="heading">Projet CDA</h6>
-                <article>
-                  <h6 class="nospace font-x1"><a href="#">CDA Greta</a></h6>
-                  <time class="font-xs block btmspace-10" datetime="2045-04-05"><sup></sup> Juin 2020</time>
-                  <p class="nospace">Site web crée dans le cadre d'un projet d'etude de concepteur devellopeur d'applications. [&hellip;]</p>
-                </article>
-              </div>
-            </footer>
-          </div>
-          <div class="wrapper row5">
-            <div id="copyright" class="hoc clear"> 
-              <p class="fl_left">Copyright &copy; 2020 - All Rights Reserved - <a href="#">Projet CDA 2020</a></p>
-              
-            </div>
-          </div>
-          <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
-        <!-- JAVASCRIPTS -->
+		<div class="wrapper row4 bgded overlay" style="background-image:url('{{ asset('images/demo/backgrounds/etoile.jpg') }}')">
+			<footer id="footer" class="hoc clear">
+				<div class="one_third first">
+					<h6 class="heading">Pense le monde</h6>
+					<p>Pense le monde est un lieu de rencontre entre les creatifs ayant des idées innovantes plein la tête et les
+						          entrepreneurs pres a passer a l'action mais manquant d'inspiration ou voulant tester leur idée avant de se
+						          lancé.</p>
+					<nav>
+						<ul class="nospace">
+							<li>
+								<a href="{{ path('accueil') }}">
+									<i class="fa fa-lg fa-home"></i>
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('apropos') }}">A propos</a>
+							</li>
+							<li>
+								<a href="{{ path('terms') }}">Termes</a>
+							</li>
+							<li>
+								<a href="{{ path('apropos') }}">Contact</a>
+							</li>
+							<li>
+								<a href="{{ path('vie_prive') }}">vie privé</a>
+							</li>
+							<li>
+								<a href="{{ path('cookies_info') }}">Cookies</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+				<div class="one_third">
+					<h6 class="heading">Me contacter</h6>
+					<ul class="nospace btmspace-30 linklist contact">
 
-        {% block javascripts %}
-            <script src="{{ asset('layout/scripts/jquery.min.js') }}"></script>
-            <script src="{{ asset('layout/scripts/jquery.backtotop.js') }}"></script>
-            <script src="{{ asset('layout/scripts/jquery.mobilemenu.js') }}"></script>
-            <script src="{{ asset('layout/scripts/like.js') }}"></script>
-        {% endblock %}
-    </body>
+						<li>
+							<i class="fa fa-phone"></i>
+							+33 612345689</li>
+						<li>
+							<i class="fa fa-fax"></i>
+							+33 612345689</li>
+						<li>
+							<i class="fa fa-envelope-o"></i>
+							baou75@hotmail.com</li>
+					</ul>
+					<ul class="faico clear">
+						<li>
+							<a class="faicon-facebook" href="#">
+								<i class="fa fa-facebook"></i>
+							</a>
+						</li>
+						<li>
+							<a class="faicon-twitter" href="#">
+								<i class="fa fa-twitter"></i>
+							</a>
+						</li>
+						<li>
+							<a class="faicon-dribble" href="#">
+								<i class="fa fa-dribbble"></i>
+							</a>
+						</li>
+						<li>
+							<a class="faicon-linkedin" href="#">
+								<i class="fa fa-linkedin"></i>
+							</a>
+						</li>
+						<li>
+							<a class="faicon-google-plus" href="#">
+								<i class="fa fa-google-plus"></i>
+							</a>
+						</li>
+						<li>
+							<a class="faicon-vk" href="#">
+								<i class="fa fa-vk"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="one_third">
+					<h6 class="heading">Projet CDA</h6>
+					<article>
+						<h6 class="nospace font-x1">
+							<a href="#">CDA Greta</a>
+						</h6>
+						<time class="font-xs block btmspace-10" datetime="2045-04-05">
+							<sup></sup>
+							Juin 2020</time>
+						<p class="nospace">Site web crée dans le cadre d'un projet d'etude de concepteur devellopeur d'applications.
+							            [&hellip;]</p>
+					</article>
+				</div>
+			</footer>
+		</div>
+		<div class="wrapper row5">
+			<div id="copyright" class="hoc clear">
+				<p class="fl_left">Copyright &copy; 2020 - All Rights Reserved -
+					<a href="#">Projet CDA 2020</a>
+				</p>
+
+			</div>
+		</div>
+		<a id="backtotop" href="#top">
+			<i class="fa fa-chevron-up"></i>
+		</a>
+		<!-- JAVASCRIPTS -->
+
+		{% block javascripts %}
+			<script src="{{ asset('layout/scripts/jquery.min.js') }}"></script>
+			<script src="{{ asset('layout/scripts/jquery.backtotop.js') }}"></script>
+			<script src="{{ asset('layout/scripts/jquery.mobilemenu.js') }}"></script>
+			<script src="{{ asset('layout/scripts/like.js') }}"></script>
+		{% endblock %}
+	</body>
+
 </html>

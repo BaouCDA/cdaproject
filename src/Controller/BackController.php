@@ -4,8 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Member;
 use App\Entity\Post;
+use App\Entity\Upload;
+use App\Form\MemberType;
+use App\Form\UploadType;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -62,19 +67,51 @@ class BackController extends AbstractController
         return $this->redirectToRoute('administration');
     }
 
-    public function profil()
+    public function profil(Request $request, EntityManagerInterface $manager)
     {
         $user = $this->getUser();
 
-        $repo = $this->getDoctrine()->getRepository(Member::class);
+        $repoMembre = $this->getDoctrine()->getRepository(Member::class);
+        $membreSelect = $repoMembre->find($user->getId());
 
-        //$donnees = $repo->findBy(array('member' => $user->getId()));
-        
+        //$membreSelect = $repoMembre->findBy(array('member' => $user->getId()));
 
-        $donnees = $repo->findBy(array('id' => $user->getId() ));
-        dump($donnees);
+        $upload = new Upload();
+        $formUpload = $this->createForm(UploadType::class, $upload);
+
+
+        $formUpload->handleRequest($request);
+        if($formUpload->isSubmitted() && $formUpload->isValid()){
+            $file = $upload->getName();
+            $fileName = $this->getUser()->getPseudo().'.'.$file->guessExtension();
+            $file->move($this->getParameter('upload_directory'), $fileName);
+            $upload->setName($fileName);
+            $membreSelect->setPhoto($fileName);
+            dump($fileName);
+            $manager->persist($membreSelect);
+            $manager->flush();
+            return $this->redirectToRoute('profil_user');
+        }
+
+        $formMemberSiganature = $this->createFormBuilder($membreSelect)
+                                     ->add('signature')
+                                     ->add('Valider',SubmitType::class)
+                                     ->getForm();
+
+        $formMemberSiganature->handleRequest($request);
+        if($formMemberSiganature->isSubmitted() && $formMemberSiganature->isValid()){
+            $membreSelect->setSignature($formMemberSiganature->get('signature')->getData());
+            $manager->persist($membreSelect);
+            $manager->flush();
+            return $this->redirectToRoute('profil_user');
+        }
+
+        //$membreSelect = $repoMembre->findBy(array('id' => $user->getId() ));
+        dump($membreSelect);
         return $this->render('back/profil.html.twig', [
-            'member' => $donnees
+            'member' => $membreSelect,
+            'formupload' => $formUpload->createView(),
+            'formsignature' => $formMemberSiganature->createView(),
         ]);
     }
 }

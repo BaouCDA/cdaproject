@@ -1,94 +1,95 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-      {% block title %}Pense le monde{% endblock %}
-  </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<title>
+			{% block title %}Pense le monde
+			{% endblock %}
+		</title>
+		<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-  <!-- Polices et icons -->
-  <link rel="stylesheet" type="text/css" href="{{ asset('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons') }}" />
-  <link rel="stylesheet" href="{{ asset('https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css') }}">
-  <!-- fichiers CSS -->
-  <link href="{{ asset('assets/css/material-dashboard.css?v=2.1.1') }}" rel="stylesheet" />
-</head>
+		<!-- Polices et icons -->
+		<link rel="stylesheet" type="text/css" href="{{ asset('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons') }}"/>
+		<link
+		rel="stylesheet" href="{{ asset('https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css') }}">
+		<!-- fichiers CSS -->
+		<link href="{{ asset('assets/css/material-dashboard.css?v=2.1.1') }}" rel="stylesheet"/>
+	</head>
 
-<body class="">
-  <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{ asset('assets/img/sidebar-1.jpg') }}">
-      <div class="logo">
-        <a href="/" class="simple-text logo-normal">
-          Pense le monde
-        </a>
-      </div>
-      {# <p>Bonjour {{ app.user.pseudo }}</p> #}
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="nav-item ">
-            <a class="nav-link" href=" {{ path('profil_user') }}">
-              <i class="material-icons">person</i>
-              <p>Profile</p>
-            </a>
-          </li>
-          {% if app.user.pseudo == "cda" %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ path('administration') }}">
-              <i class="material-icons">content_paste</i>
-              <p>publications</p>
-            </a>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ path('administration') }}">
-              <i class="material-icons">content_paste</i>
-              <p>Mes publications</p>
-            </a>
-          </li>
-          {% endif %}
+	<body class="">
+		<div class="wrapper ">
+			<div class="sidebar" data-color="purple" data-background-color="white" data-image="{{ asset('assets/img/sidebar-1.jpg') }}">
+				<div class="logo">
+					<a href="/" class="simple-text logo-normal">
+						Pense le monde
+					</a>
+				</div>
+				{# <p>Bonjour {{ app.user.pseudo }}</p> #}
+				<div class="sidebar-wrapper">
+					<ul class="nav">
+						<li class="nav-item ">
+							<a class="nav-link" href=" {{ path('profil_user') }}">
+								<i class="material-icons">person</i>
+								<p>Profile</p>
+							</a>
+						</li>
+						{% if app.user.pseudo == "cda" %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('administration') }}">
+									<i class="material-icons">content_paste</i>
+									<p>publications</p>
+								</a>
+							</li>
+						{% else %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('administration') }}">
+									<i class="material-icons">content_paste</i>
+									<p>Mes publications</p>
+								</a>
+							</li>
+						{% endif %}
 
-          <li class="nav-item ">
-            <a class="nav-link" href="{{ path('create_post') }}">
-              <i class="material-icons">library_books</i>
-              <p>Ecrire un post</p>
-            </a>
-          </li>
-          
-          {% if app.user.pseudo == "cda" %}
-          <li class="nav-item ">
-            <a class="nav-link" href="{{ path('view_members')}}">
-              <i class="material-icons">language</i>
-              <p>Membres</p>
-            </a>
-          </li>
-          {% endif %}
-        </ul>
-      </div>
-    </div>
-    <div class="main-panel">
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-        <div class="container-fluid">
-          <div class="navbar-wrapper">
-            <a class="navbar-brand" href="{{ path('logout') }}">Deconexion</a>
-          </div>
-        </div>
-      </nav>
-      <!-- Contenu -->
-      <div class="content">
-        <div class="container-fluid">
-          <div class="row">            
-            <div class="col-md-12">
-                {% block body %}{% endblock %}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>        
-  </div>
-</body>
+						<li class="nav-item ">
+							<a class="nav-link" href="{{ path('create_post') }}">
+								<i class="material-icons">library_books</i>
+								<p>Ecrire un post</p>
+							</a>
+						</li>
 
-</html>
+						{% if app.user.pseudo == "cda" %}
+							<li class="nav-item ">
+								<a class="nav-link" href="{{ path('view_members')}}">
+									<i class="material-icons">language</i>
+									<p>Membres</p>
+								</a>
+							</li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+			<div
+				class="main-panel">
+				<!-- Navbar -->
+				<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+					<div class="container-fluid">
+						<div class="navbar-wrapper">
+							<a class="navbar-brand" href="{{ path('logout') }}">Deconexion</a>
+						</div>
+					</div>
+				</nav>
+				<!-- Contenu -->
+				<div class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-12"> {% block body %}{% endblock %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</body>
+	</html>
+</div></body></html>
