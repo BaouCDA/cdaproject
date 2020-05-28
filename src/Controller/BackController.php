@@ -19,7 +19,6 @@ class BackController extends AbstractController
     
     public function administation(Request $request, PaginatorInterface $paginator)
     {
-        //$userA= $this->get('security.context')->getToken()->getUser();
         $user = $this->getUser();
 
         $repo = $this->getDoctrine()->getRepository(Post::class);
@@ -106,8 +105,6 @@ class BackController extends AbstractController
             return $this->redirectToRoute('profil_user');
         }
 
-        //$membreSelect = $repoMembre->findBy(array('id' => $user->getId() ));
-        dump($membreSelect);
         return $this->render('back/profil.html.twig', [
             'member' => $membreSelect,
             'formupload' => $formUpload->createView(),

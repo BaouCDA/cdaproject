@@ -26,19 +26,10 @@ class FormsController extends AbstractController
         $repoMembre = $this->getDoctrine()->getRepository(Member::class);
         $membre = $repoMembre->find($userId);
 
-
-        // $form = $this->createFormBuilder($post)
-        //             ->add('title')
-        //             ->add('content')
-        //             ->add('image')
-        //             ->add('category')
-        //             ->getForm();
-
         $form = $this->createForm(PostType::class, $post);
 
         $form->handleRequest($request);
         
-        dump($post);
 
         if($form->isSubmitted() && $form->isValid()){
             if(!$post->getId()){
@@ -58,7 +49,6 @@ class FormsController extends AbstractController
         }
 
         return $this->render('forms/create-update.html.twig', [
-            'controller_name' => 'FormsController',
             'formPost' => $form->createView(),
             'modeUpdate' => $post->getId() !== null
         ]);

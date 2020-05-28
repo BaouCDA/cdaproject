@@ -312,7 +312,7 @@ class FrontController extends AbstractController
             'code' => 403,
             'message' => "Unauthoriezd"
         ], 403);
-
+        //Si le membre a deja liker ce poste, suppression de son like
         if($post->isLikedByMember($user)){
             $like = $likeRepos->findOneBy([
                 'post' => $post,
@@ -321,7 +321,7 @@ class FrontController extends AbstractController
 
             $manager->remove($like);
             $manager->flush();
-
+            // mise a jour du nbr de like
             return $this->json([
                 'code' => 200,
                 'message' => 'Like bien supprimé',

@@ -9,19 +9,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PostLike
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+
 
     /**
+     * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\Post", inversedBy="likes")
      */
     private $post;
 
     /**
+     * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\Member", inversedBy="likes")
      */
     private $member;

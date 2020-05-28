@@ -75,7 +75,7 @@ administration:
     controller: App\Controller\BackController::administation
 
 view_members:
-    path: /view_members
+    path: /admin/view_members
     controller: App\Controller\BackController::viewMembers
 
 profil_user:
