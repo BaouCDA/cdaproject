@@ -47,4 +47,12 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findAllPostByCategory($categorie): ?Array {
+
+        return $this->getEntityManager() 
+                    ->createQuery("select p, v from App\Entity\Post p join p.category v with v.title = :category")
+                    ->setParameter('category', $categorie)
+                    ->getResult();
+    }
 }

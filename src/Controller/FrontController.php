@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\PostLike;
@@ -21,38 +22,40 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FrontController extends AbstractController
 {
-    /***
-     * @Route("/accueil", name="accueil")
+    /**
+     * @Route("/accueil", name="accueil_bis")
      */
     public function index()
     {
-        return $this->render('front/index.html.twig', [
-            'controller_name' => 'FrontController',
-        ]);
+        return $this->render('front/index.html.twig', []);
     }
 
     public function listeHistoires(Request $request, PaginatorInterface $paginator)
     {
-        $repo = $this->getDoctrine()->getRepository(Post::class);
-        $donnees = $repo->findBy(array('category' => 11));
-
+        // Rcupere le repository des posts
+        $repo = $this->get('doctrine')->getRepository(Post::class); 
+        // Effectue la requete pour recuperer les posts par rpport  leurs categorie
+        $donnees = $repo->findAllPostByCategory("histoire");
+        
+        // Permet d'afficher 4 posts par pages
         $posts = $paginator->paginate(
             $donnees, 
             $request->query->getInt('page', 1),
             4 
         );
-
+        // Retourne la vue avec le resultt d la requete formater pour la pagination
         return $this->render('front/liste-histoires.html.twig', [
-            'controller_name' => 'FrontController',
             'posts' => $posts
         ]);
     }
 
     public function showHistoire(Post $post, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator)
     {
+        // Rcupere le repository des posts
         $repoPost = $this->getDoctrine()->getRepository(Post::class);
-
+        // Recupere le repository des commentaires
         $repoComment = $this->getDoctrine()->getRepository(Comment::class);
+        // Effectue la requete pour recuperer le post souhaité
         $donnees = $repoComment->findBy(array('post' => $post));
 
         $comments = $paginator->paginate(
@@ -90,8 +93,8 @@ class FrontController extends AbstractController
 
     public function listeEntreprises(Request $request, PaginatorInterface $paginator)
     {
-        $repo = $this->getDoctrine()->getRepository(Post::class);
-        $donnees = $repo->findBy(array('category' => 8));
+        $repo = $this->get('doctrine')->getRepository(Post::class);
+        $donnees = $repo->findAllPostByCategory("entreprise");
 
         $posts = $paginator->paginate(
             $donnees, 
@@ -147,8 +150,8 @@ class FrontController extends AbstractController
 
     public function listePolitiques(Request $request, PaginatorInterface $paginator)
     {
-        $repo = $this->getDoctrine()->getRepository(Post::class);
-        $donnees = $repo->findBy(array('category' => 10));
+        $repo = $this->get('doctrine')->getRepository(Post::class);
+        $donnees = $repo->findAllPostByCategory("politique");
 
         $posts = $paginator->paginate(
             $donnees, 
@@ -204,8 +207,8 @@ class FrontController extends AbstractController
 
     public function listePlanetes(Request $request, PaginatorInterface $paginator)
     {
-        $repo = $this->getDoctrine()->getRepository(Post::class);
-        $donnees = $repo->findBy(array('category' => 9));
+        $repo = $this->get('doctrine')->getRepository(Post::class);
+        $donnees = $repo->findAllPostByCategory("planete");
 
         $posts = $paginator->paginate(
             $donnees, 
