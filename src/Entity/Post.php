@@ -27,7 +27,7 @@ class Post
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\Length(min=1)
+     * @Assert\Length(min=5)
      */
     private $content;
 

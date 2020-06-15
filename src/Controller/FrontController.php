@@ -309,36 +309,37 @@ class FrontController extends AbstractController
     }
 
     public function like(Post $post, EntityManagerInterface $manager, PostLikeRepository $likeRepos) : Response {
-        
+        //Récupere l'utilisateur de la session
         $user =$this->getUser();
+        //Verifie que l'utilisateur est connecté
         if(!$user) return $this->json([
             'code' => 403,
             'message' => "Unauthoriezd"
         ], 403);
+
         //Si le membre a deja liker ce poste, suppression de son like
         if($post->isLikedByMember($user)){
             $like = $likeRepos->findOneBy([
                 'post' => $post,
                 'member' => $user
             ]);
-
             $manager->remove($like);
             $manager->flush();
-            // mise a jour du nbr de like
+
+            // Puis mise a jour du nbr de like
             return $this->json([
                 'code' => 200,
                 'message' => 'Like bien supprimé',
                 'likes' => $likeRepos->count(['post' => $post])
             ], 200);
         }
-
+        //Sinon création d'un nouveau like
         $like = new PostLike();
         $like->setPost($post)
              ->setMember($user);
-
         $manager->persist($like);
         $manager->flush();
-
+        //Envoi du nouveau nombre de likes
         return $this->json([
             'code' => 200,
             'message' => 'Like bien ajouté',

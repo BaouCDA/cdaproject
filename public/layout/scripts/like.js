@@ -1,20 +1,23 @@
 function onClickBtnLike(event){
+    //Pour annuler le changement de page provoqué par le clic
     event.preventDefault();
+    //Création des constante
     const url = this.href;
     const spanCount = this.querySelector('span.js-likes');
-    //const jaime = this.querySelector('span.js-label');
     const icone = this.querySelector('i');
 
+    //Récuper l'url, effectue la requete et recupere la reponse
     axios.get(url).then(function(response){
-      //console.log(response);
+      //nombre de likes
       const likes = response.data.likes;
+      //Affichage du nombre de likes dans le span correspondant
       spanCount.textContent = likes;
-      if(icone.classList.contains('fas')){
+      //Modification du pouce en fonction de sont état
+      if(icone.classList.contains('fas'))
+      {
         icone.classList.replace('fas','far');
-        //jaime.textContent="j\'aime";
       }else{
         icone.classList.replace('far','fas');
-        //jaime.textContent="je n'aime plus ?";
       }
     }).catch(function(error){
       if(error.response.status === 403){
@@ -24,7 +27,7 @@ function onClickBtnLike(event){
       }
     })
   }
-
+  //Apel la fonction onClickBtnLike ci-dessus en cas de clic
   document.querySelectorAll('a.js-like').forEach(function(link){
     link.addEventListener('click', onClickBtnLike);
   })
