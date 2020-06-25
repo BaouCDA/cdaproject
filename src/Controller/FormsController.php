@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 
 class FormsController extends AbstractController
 {
@@ -23,31 +24,35 @@ class FormsController extends AbstractController
         if(!$post){
             $post = new Post();
         }
-        // Récupération du membre connecté
-        $userId = $this->getUser()->getId();
-        $repoMembre = $this->getDoctrine()->getRepository(Member::class);
-        $membre = $repoMembre->find($userId);
+        try{
+            // Récupération du membre connecté
+            $userId = $this->getUser()->getId();
+            $repoMembre = $this->getDoctrine()->getRepository(Member::class);
+            $membre = $repoMembre->find($userId);
 
-        $form = $this->createForm(PostType::class, $post);
+            $form = $this->createForm(PostType::class, $post);
 
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            // si c'est un nouveau post, ajout de la date de création
-            if(!$post->getId()){
-                $post->setCreatedAt(new \DateTime());
+            $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()){
+                // si c'est un nouveau post, ajout de la date de création
+                if(!$post->getId()){
+                    $post->setCreatedAt(new \DateTime());
+                }
+                // si il n'y a pas d'image, une image est mise par defaut
+                if($form->get('image')->getData()==null){
+                    $post->setImage("http://placehold.it/350x150");
+                }
+                $post->setMember($membre);
+
+                $manager->persist($post);
+                $manager->flush();
+                //Redirection vers la page du post
+                return $this->redirectToRoute($post->getCategory(), [
+                    'id' => $post->getId()
+                ]);
             }
-            // si il n'y a pas d'image, une image est mise par defaut
-            if($form->get('image')->getData()==null){
-                $post->setImage("http://placehold.it/350x150");
-            }
-            $post->setMember($membre);
-
-            $manager->persist($post);
-            $manager->flush();
-            //Redirection vers la page du post
-            return $this->redirectToRoute($post->getCategory(), [
-                'id' => $post->getId()
-            ]);
+        }catch(Exception $e) {
+            echo 'Erreur : ' . $e->getMessage();
         }
         //retour de la vue avec le formulaire
         // modeUpdate indique si c'est une modification ou une création de post

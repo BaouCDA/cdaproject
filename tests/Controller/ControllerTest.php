@@ -27,9 +27,7 @@ class ControllerTest extends WebTestCase
     public function testAddAuth()
     {
         $client = static::createClient();
-
         $crawler = $client->request('GET', '/login');
-
         $form = $crawler->selectButton('Connexion')->form();
         $form['_username'] = 'cda';
         $form['_password'] = '00000000';

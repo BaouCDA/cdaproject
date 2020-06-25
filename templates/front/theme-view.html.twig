@@ -123,7 +123,7 @@ function apelWiki(keyword){
                 $("#res_row").empty();
                 // boucle pour afficher les données de l'api | result[3] coorespond au lien, result[1] coorespond au mot trouver, result[2] coorespond à la description
                 for (i=1;i<result[1].length;i++){                 
-                    $("#res_row").append("<div><div><a target='_blank' class='well 'href="+result[3][i]+"><h2>" + result[1][i]+ "</h2></a>"+"<p>test" + result[2][i] + "</p></div></div>");
+                    $("#res_row").append("<div><div><a target='_blank' class='well 'href="+result[3][i]+"><h2>" + result[1][i]+ "</h2></a>"+ result[2][i] + "</div></div>");
                 }
             },
             error: function (error) 

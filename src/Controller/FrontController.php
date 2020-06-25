@@ -14,6 +14,7 @@ use App\Form\PostType;
 use App\Repository\PostLikeRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,10 +33,14 @@ class FrontController extends AbstractController
 
     public function listeHistoires(Request $request, PaginatorInterface $paginator)
     {
-        // Rcupere le repository des posts
-        $repo = $this->get('doctrine')->getRepository(Post::class); 
-        // Effectue la requete pour recuperer les posts par rpport  leurs categorie
-        $donnees = $repo->findAllPostByCategory("histoire");
+        try{
+            // Recupere le repository des posts
+            $repo = $this->get('doctrine')->getRepository(Post::class); 
+            // Effectue la requete pour recuperer les posts par rapport  leurs categorie
+            $donnees = $repo->findAllPostByCategory("histoire");
+        }catch(Exception $e) {
+            echo 'Erreur : ' . $e->getMessage();
+        }
         
         // Permet d'afficher 4 posts par pages
         $posts = $paginator->paginate(
@@ -51,7 +56,7 @@ class FrontController extends AbstractController
 
     public function showHistoire(Post $post, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator)
     {
-        // Rcupere le repository des posts
+        // Recupere le repository des posts
         $repoPost = $this->getDoctrine()->getRepository(Post::class);
         // Recupere le repository des commentaires
         $repoComment = $this->getDoctrine()->getRepository(Comment::class);
