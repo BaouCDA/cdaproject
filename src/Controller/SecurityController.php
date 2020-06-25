@@ -28,7 +28,7 @@ class SecurityController extends AbstractController
             //Remplissage des champs restant
             $membre->setCreatedAt(new \DateTime());
             $membre->setSignature('Aucune signature');
-            $membre->setPhoto('http://placehold.it/350x150');
+            $membre->setPhoto('default.jpg');
             $manager->persist($membre);
             $manager->flush();
             // Redirection vers la page de login
